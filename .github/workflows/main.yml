@@ -8,7 +8,7 @@ on:
     - cron:  '0 1 * * *'
 
 env:
-  ACTIONS_ALLOW_UNSECURE_COMMANDS=true    
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true    
 
 jobs: 
   build-jdk8:
