@@ -48,19 +48,19 @@ jobs:
         echo $repository
 
     # if pushed from a feature branch, should create a proper repository in artifactory for that  
-    - name: Feature Branch Repository Creation
-      run: |
-        jf rt rc templates/local-repo-template.json --vars key1=$repository
-        jf rt rc templates/remote-repo-template.json --vars key1=$repository
-        jf rt rc templates/virtual-repo-template.json --vars key1=$repository
+    # - name: Feature Branch Repository Creation
+    #   run: |
+    #     jf rt rc templates/local-repo-template.json --vars key1=$repository
+    #     jf rt rc templates/remote-repo-template.json --vars key1=$repository
+    #     jf rt rc templates/virtual-repo-template.json --vars key1=$repository
   
-    - if: always()   
-      name: Feature Branch Repository Update
-      env:
-        SERVER_ID: mondo192
-      run: |
-        echo "::set-env name=repository::$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')"
-        jf mvnc --server-id-resolve=$SERVER_ID --server-id-deploy=$SERVER_ID --repo-resolve-releases=auto-cli-virtual-$repository --repo-resolve-snapshots=auto-cli-virtual-$repository --repo-deploy-releases=auto-cli-virtual-$repository --repo-deploy-snapshots=auto-cli-virtual-$repository
+    # - if: always()   
+    #   name: Feature Branch Repository Update
+    #   env:
+    #     SERVER_ID: mondo192
+    #   run: |
+    #     echo "::set-env name=repository::$(echo ${GITHUB_REF#refs/heads/} | sed 's/\//_/g')"
+    #     jf mvnc --server-id-resolve=$SERVER_ID --server-id-deploy=$SERVER_ID --repo-resolve-releases=auto-cli-virtual-$repository --repo-resolve-snapshots=auto-cli-virtual-$repository --repo-deploy-releases=auto-cli-virtual-$repository --repo-deploy-snapshots=auto-cli-virtual-$repository
      
     - if: always()
       name: Build & Deploy
